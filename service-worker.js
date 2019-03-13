@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/3.6.3/workbox-sw.js");
 
 importScripts(
-  "/tut-hooks-data-fetching/precache-manifest.77cd2f899f9eef7aff59a520c71ad4c0.js"
+  "/tut-hooks-data-fetching/precache-manifest.196bf7888a2ff025ba1c37dbdeb21bf3.js"
 );
 
 workbox.clientsClaim();
