@@ -90,7 +90,7 @@ const useFetch = (initialUrl, initialData) => {
 const FetchAndDisplay = ({ search }) => {
   const [query, setQuery] = useState("redux");
   const { data, isLoading, error, doFetch } = useFetch(
-    "http://hn.algolia.com/api/v1/search?query=redux",
+    "https://hn.algolia.com/api/v1/search?query=redux",
     { hits: [] }
   );
 
@@ -112,7 +112,7 @@ const FetchAndDisplay = ({ search }) => {
         style={{ width: "100%" }}
         onSubmit={e => {
           e.preventDefault();
-          doFetch(`http://hn.algolia.com/api/v1/search?query=${query}`);
+          doFetch(`https://hn.algolia.com/api/v1/search?query=${query}`);
         }}
       >
         <input
