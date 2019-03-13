@@ -2,6 +2,85 @@
 
 this is a data fetching tutorial using hooks, by [this guy](https://www.robinwieruch.de/react-hooks-fetch-data/), as recommended by [this other guy](https://overreacted.io/a-complete-guide-to-useeffect/#tldr)
 
+# code
+
+```js
+// grouped state
+const dataFetchReducer = (state, action) => {
+  switch (action.type) {
+    case "FETCH_INIT":
+      return {
+        ...state,
+        isLoading: true,
+        error: ""
+      };
+    case "FETCH_SUCCESS":
+      return {
+        ...state,
+        isLoading: false,
+        data: action.payload
+      };
+    case "FETCH_FAILURE":
+      return {
+        ...state,
+        isLoading: false,
+        error: action.payload
+      };
+    default:
+      throw new Error("dunno what to do with this condition");
+  }
+};
+
+const useFetch = (initialUrl, initialData) => {
+  const INIT = { hits: [] };
+  const [data, setData] = useState(initialData || INIT);
+  const [url, setUrl] = useState(
+    initialUrl || "http://hn.algolia.com/api/v1/search?query=redux"
+  );
+
+  const [state, dispatch] = useReducer(dataFetchReducer, {
+    // dataFetchReducer is the action
+    // this here is the initial state
+    isLoading: false,
+    error: "",
+    data: initialData
+  });
+
+  useEffect(() => {
+    let didCancel = false;
+
+    const fetchData = async () => {
+      dispatch({ type: "FETCH_INIT" });
+
+      try {
+        const result = await axios(url);
+        if (!didCancel) {
+          dispatch({ type: "FETCH_SUCCESS", payload: result.data });
+        }
+      } catch (e) {
+        if (!didCancel) {
+          dispatch({ type: "FETCH_FAILURE", payload: e.message });
+        }
+      }
+    };
+
+    fetchData();
+
+    return () => {
+      // if it unmounts, this returns true
+      // thereby skipping FETCH_SUCCESS / FETCH_FAILURE
+      didCancel = true;
+    };
+  }, [url]);
+
+  const doFetch = url => {
+    setUrl(url);
+  };
+
+  return { ...state, doFetch };
+};
+```
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts

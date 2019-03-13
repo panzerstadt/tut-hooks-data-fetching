@@ -85,28 +85,6 @@ const useFetch = (initialUrl, initialData) => {
   };
 
   return { ...state, doFetch };
-
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState();
-  useEffect(() => {
-    const fetchHN = async () => {
-      setError();
-      setData(INIT);
-      setIsLoading(true);
-
-      try {
-        const result = await axios(url);
-        setData(result.data);
-      } catch (e) {
-        setError(e.message);
-      }
-      setIsLoading(false);
-    };
-
-    fetchHN();
-  }, [url]);
-
-  return { data, isLoading, error, doFetch };
 };
 
 const FetchAndDisplay = ({ search }) => {
