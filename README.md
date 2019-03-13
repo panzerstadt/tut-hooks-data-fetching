@@ -1,3 +1,7 @@
+# tldr
+
+this is a data fetching tutorial using hooks, by [this guy](https://www.robinwieruch.de/react-hooks-fetch-data/), as recommended by [this other guy](https://overreacted.io/a-complete-guide-to-useeffect/#tldr)
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
